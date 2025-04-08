@@ -133,7 +133,7 @@ def train_epoch(model,data_loader,loss_fn,optimizer):
         
         label_predicted = model(x)
         loss = loss_fn(label_predicted, label)
-        
+        # get a step 
         optimizer.zero_grad()
         loss.backward()
         optimizer.step()
@@ -141,12 +141,10 @@ def train_epoch(model,data_loader,loss_fn,optimizer):
     print('Epoch_train_acc,loss:',validate(model,data_loader,loss_fn))
     
     print('Epoch_val_acc,loss:',validate(model,val_loader,loss_fn))
-
+# train for number of epoch
 for epoch in range(6):
     print('Epoch:',epoch)
     train_epoch(model,data_loader = train_loader, loss_fn= loss_fn, optimizer= optimizer)
     
 print("Test acc:", validate(model,test_loader,loss_fn))
 
-x = torch.randn((64, 32*32*3))
-torch.jit.save(torch.jit.trace(model.cpu(), (x)), "model.pth")
