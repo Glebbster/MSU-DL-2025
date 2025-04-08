@@ -79,7 +79,7 @@ print(device)
 model = NN().to(device)
 
 # task assert
-assert model is not None, 'Переменная model пустая. Где же тогда ваша модель?'
+assert model is not None, 'The variable model is empty. Where is your model?'
 
 try:
     x = images.reshape(-1, 3072).to(device)
@@ -88,11 +88,11 @@ try:
     # compute outputs given inputs, both are variables
     y_predicted = model(x)
 except Exception as e:
-    print('С моделью что-то не так')
+    print('There is something wrong with the model')
     raise e
 
 
-assert y_predicted.shape[-1] == 10, 'В последнем слое модели неверное количество нейронов'
+assert y_predicted.shape[-1] == 10, 'The last layer of the model has an incorrect number of neurons'
 
 
 loss_fn = nn.CrossEntropyLoss()
@@ -141,10 +141,10 @@ def train_epoch(model,data_loader,loss_fn,optimizer):
     print('Epoch_train_acc,loss:',validate(model,data_loader,loss_fn))
     
     print('Epoch_val_acc,loss:',validate(model,val_loader,loss_fn))
+
 # train for number of epoch
 for epoch in range(6):
     print('Epoch:',epoch)
     train_epoch(model,data_loader = train_loader, loss_fn= loss_fn, optimizer= optimizer)
     
 print("Test acc:", validate(model,test_loader,loss_fn))
-
